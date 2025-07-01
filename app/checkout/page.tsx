@@ -33,6 +33,7 @@ export default function CheckoutPage() {
   // Refs for form fields
   const fullNameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
 
   // Delivery fee based on selected speed
@@ -46,6 +47,7 @@ export default function CheckoutPage() {
     // Get form values
     const customerName = fullNameRef.current?.value || "";
     const customerPhone = phoneRef.current?.value || "";
+    const customerEmail = emailRef.current?.value || "";
     const address = addressRef.current?.value || "";
 
     // Validate required fields
@@ -63,6 +65,7 @@ export default function CheckoutPage() {
     const deliveryInformation: any = {
       customerName,
       customerPhone,
+      customerEmail,
       orderType: deliveryMethod, // "delivery" or "pickup"
       paymentMethod: "card", // or get from form if you have multiple options
     };
@@ -77,13 +80,24 @@ export default function CheckoutPage() {
     // Create the order in Firestore (backend-calculated prices)
     const order = await createOrder(cartItems, deliveryInformation);
 
-    console.log(order);
+    if (order) {
+      const payment = await paystackHandler.resumeTransaction(
+        order.payment.data.access_code,
+        {
+          onSuccess: () => {
+            console.log("success");
+          },
+        }
+      );
+
+      console.log(payment.onSuccess);
+    }
 
     // Simulate payment processing or redirect to success page
-    setTimeout(() => {
-      setIsProcessing(false);
-      router.push("/payment-success");
-    }, 1500);
+    // setTimeout(() => {
+    //   setIsProcessing(false);
+    //   router.push("/payment-success");
+    // }, 1500);
   };
 
   useEffect(() => {
@@ -246,6 +260,7 @@ export default function CheckoutPage() {
                       placeholder="Enter your email address"
                       className="pl-10"
                       required
+                      ref={emailRef}
                     />
                   </div>
                 </div>
