@@ -35,6 +35,7 @@ export default function CheckoutPage() {
 
   const handlePayNow = () => {
     setIsProcessing(true);
+    console.log(cartItems);
 
     // Simulate payment processing
     setTimeout(() => {

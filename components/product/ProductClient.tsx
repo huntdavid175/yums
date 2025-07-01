@@ -120,11 +120,11 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
 
     addToCart(
       {
-        id: `${product.id}-${selectedSize}-${selectedExtras.join("-")}`,
+        id: foodData.id,
         name: productName,
         price: `GH₵${totalPrice.toFixed(2)}`,
         image: product.images[0],
-        category: product.category,
+        category: foodData.category,
       },
       quantity
     );

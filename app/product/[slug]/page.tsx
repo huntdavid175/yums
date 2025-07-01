@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { db } from "@/lib/firebaseAdmin";
 
 import ProductClient from "@/components/product/ProductClient";
+import { FoodNotFound } from "@/components/FoodNotFound";
 
 export default async function ProductPage({
   params,
@@ -21,7 +22,7 @@ export default async function ProductPage({
   const docSnap = await docRef.get();
   if (!docSnap.exists) {
     // Handle not found
-    console.log("Product not found");
+    return <FoodNotFound />;
   }
   const product = { id: docSnap.id, ...docSnap.data() };
 
