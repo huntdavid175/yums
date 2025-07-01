@@ -66,35 +66,35 @@ export default function Home() {
               id="Pork Ɛnumde"
               image="https://upload.wikimedia.org/wikipedia/commons/0/0a/Jollof_Rice_with_Stew.jpg"
               title="Pork Ɛnumde"
-              price="GH₵160.00"
+              price="160.00"
               category="Big Trays (Ɛnumde)"
               badge="Out of Stock"
             />
             <FoodCard
               image="https://africanchopbetter.com/wp-content/uploads/sites/110/2024/04/fried-rice-and-chicken.jpg"
               title="Easter Special (5 heads)"
-              price="GH₵300.00"
+              price="300.00"
               category="Big Trays (Ɛnumde)"
               id="Pork Ɛnumde"
             />
             <FoodCard
               image="https://preview.redd.it/7fajz6eccpb51.jpg?width=1080&crop=smart&auto=webp&s=40c39ff280b8f1bdf8e220cfb6ca3146f0e05511"
               title="Jollof John Cena"
-              price="GH₵105.00"
+              price="105.00"
               category="Combo"
               id="Pork Ɛnumde"
             />
             <FoodCard
               image="https://aftradvillagekitchen.co.uk/wp-content/uploads/2023/09/Waakye-in-leaf.png"
               title="Party Jollof for 15"
-              price="GH₵800.00"
+              price="800.00"
               category="Corporate Trays"
               id="Pork Ɛnumde"
             />
             <FoodCard
               image="https://i0.wp.com/biscuitsandladles.com/wp-content/uploads/2017/01/spaghetti1.jpg?fit=3082%2C2317&ssl=1"
               title="Birthday Jollof (for friends and family)"
-              price="GH₵999.00"
+              price="999.00"
               category="Big Trays (Ɛnumde)"
               id="Pork Ɛnumde"
             />

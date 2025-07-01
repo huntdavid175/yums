@@ -16,7 +16,7 @@ import { calculateOrderTotal, createOrder } from "../actions/place-order";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cartItems, cartTotal } = useCart();
+  const { cartItems, cartTotal, clearCart } = useCart();
   const [paystackHandler, setPaystackHandler] = useState<any>(null);
   const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">(
     "delivery"
@@ -85,7 +85,8 @@ export default function CheckoutPage() {
         order.payment.data.access_code,
         {
           onSuccess: () => {
-            console.log("success");
+            clearCart();
+            router.replace("/payment-success");
           },
         }
       );
