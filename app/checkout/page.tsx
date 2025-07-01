@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,10 +12,12 @@ import { useCart } from "@/context/CartContext";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { calculateOrderTotal, createOrder } from "../actions/place-order";
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cartItems, cartTotal } = useCart();
+  const [paystackHandler, setPaystackHandler] = useState<any>(null);
   const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">(
     "delivery"
   );
@@ -28,22 +30,70 @@ export default function CheckoutPage() {
   });
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // Refs for form fields
+  const fullNameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const addressRef = useRef<HTMLInputElement>(null);
+
   // Delivery fee based on selected speed
   const deliveryFee =
     deliveryMethod === "pickup" ? 0 : deliverySpeed === "express" ? 50 : 0;
   const total = cartTotal + deliveryFee;
 
-  const handlePayNow = () => {
+  const handlePayNow = async () => {
     setIsProcessing(true);
-    console.log(cartItems);
 
-    // Simulate payment processing
+    // Get form values
+    const customerName = fullNameRef.current?.value || "";
+    const customerPhone = phoneRef.current?.value || "";
+    const address = addressRef.current?.value || "";
+
+    // Validate required fields
+    const errors = {
+      address: deliveryMethod === "delivery" && !address,
+      phone: !customerPhone,
+    };
+    setFormErrors(errors);
+    if (errors.address || errors.phone) {
+      setIsProcessing(false);
+      return;
+    }
+
+    // Build delivery information object
+    const deliveryInformation: any = {
+      customerName,
+      customerPhone,
+      orderType: deliveryMethod, // "delivery" or "pickup"
+      paymentMethod: "card", // or get from form if you have multiple options
+    };
+    if (deliveryMethod === "delivery") {
+      deliveryInformation.deliveryAddress = {
+        street: address,
+        city: "", // You can add city/zip fields if you have them
+        zip: "",
+      };
+    }
+
+    // Create the order in Firestore (backend-calculated prices)
+    const order = await createOrder(cartItems, deliveryInformation);
+
+    console.log(order);
+
+    // Simulate payment processing or redirect to success page
     setTimeout(() => {
       setIsProcessing(false);
-      // Redirect to success page
       router.push("/payment-success");
     }, 1500);
   };
+
+  useEffect(() => {
+    // Dynamically import PaystackPop only on the client side
+    import("@paystack/inline-js").then((module) => {
+      const PaystackPop = module.default;
+      const handler = new PaystackPop();
+      setPaystackHandler(handler);
+    });
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -51,7 +101,7 @@ export default function CheckoutPage() {
 
       <main className="flex-1 py-8 px-4">
         {/* Notification Banner */}
-        <div className="max-w-6xl mx-auto mb-6">
+        {/* <div className="max-w-6xl mx-auto mb-6">
           <div className="bg-green-50 border border-green-100 rounded-lg p-4 relative">
             <div className="flex items-start">
               <div className="flex-shrink-0">
@@ -71,7 +121,7 @@ export default function CheckoutPage() {
               <X className="h-4 w-4" />
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl font-bold mb-8">Checkout</h1>
@@ -125,6 +175,8 @@ export default function CheckoutPage() {
                         type="text"
                         placeholder="Enter your full name"
                         className="pl-10"
+                        ref={fullNameRef}
+                        required
                       />
                     </div>
                   </div>
@@ -132,14 +184,34 @@ export default function CheckoutPage() {
                     <Label htmlFor="phone">Phone Number</Label>
                     <div className="mt-1 flex">
                       <div className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                        <div className="flex items-center">
-                          <Image
+                        <div className="flex items-center gap-x-1">
+                          {/* <Image
                             src="/placeholder.svg?height=20&width=30"
                             alt="Ghana flag"
                             width={20}
                             height={15}
                             className="mr-1"
-                          />
+                          /> */}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 64 64"
+                          >
+                            <path fill="#f9cb38" d="M0 25h64v14H0z" />
+                            <path
+                              fill="#ec1c24"
+                              d="M54 10H10C3.373 10 0 14.925 0 21v4h64v-4c0-6.075-3.373-11-10-11"
+                            />
+                            <path
+                              fill="#137a08"
+                              d="M0 43c0 6.075 3.373 11 10 11h44c6.627 0 10-4.925 10-11v-4H0v4"
+                            />
+                            <path
+                              fill="#25333a"
+                              d="m31.778 25.825l1.947 3.945l4.355.638l-3.149 3.072l.744 4.333l-3.897-2.047l-3.896 2.047l.744-4.333l-3.15-3.072l4.356-.638z"
+                            />
+                          </svg>
                           <span>+233</span>
                         </div>
                       </div>
@@ -150,6 +222,8 @@ export default function CheckoutPage() {
                           formErrors.phone ? "border-red-500" : ""
                         }`}
                         placeholder="Phone number"
+                        required
+                        ref={phoneRef}
                       />
                     </div>
                     {formErrors.phone && (
@@ -171,6 +245,7 @@ export default function CheckoutPage() {
                       type="email"
                       placeholder="Enter your email address"
                       className="pl-10"
+                      required
                     />
                   </div>
                 </div>
@@ -193,6 +268,8 @@ export default function CheckoutPage() {
                         className={`pl-10 ${
                           formErrors.address ? "border-red-500" : ""
                         }`}
+                        required
+                        ref={addressRef}
                       />
                     </div>
                     {formErrors.address && (

@@ -15,6 +15,8 @@ export interface CartItem {
   quantity: number;
   image: string;
   category: string;
+  extras: any;
+  size: any;
 }
 
 interface CartContextType {

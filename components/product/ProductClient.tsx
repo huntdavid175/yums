@@ -125,6 +125,8 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
         price: `GH₵${totalPrice.toFixed(2)}`,
         image: product.images[0],
         category: foodData.category,
+        extras: selectedExtras,
+        size: selectedSize,
       },
       quantity
     );
