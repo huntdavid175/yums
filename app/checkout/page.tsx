@@ -86,7 +86,7 @@ export default function CheckoutPage() {
         {
           onSuccess: () => {
             clearCart();
-            router.replace("/payment-success");
+            router.replace(`/payment-success/${order.order.orderId}`);
           },
         }
       );
