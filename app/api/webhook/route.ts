@@ -39,6 +39,17 @@ export async function POST(req: NextRequest) {
     }
     const orderData = orderDoc.data();
     console.log("Order found:", orderData);
+
+    // Calculate estimated delivery time (paidAt + 40 minutes)
+    const paidAt = new Date(event.data.paidAt);
+    const deliveryTime = new Date(paidAt.getTime() + 40 * 60000); // 40 minutes
+    const hours = deliveryTime.getHours();
+    const minutes = deliveryTime.getMinutes();
+    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+    const amPm = hours >= 12 ? "PM" : "AM";
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const estimatedDelivery = `${formattedHours}:${formattedMinutes} ${amPm}`;
+
     // Update the order status to 'paid'
     await db.collection("pending-orders").doc(orderId).update({
       status: "paid",
@@ -53,8 +64,9 @@ export async function POST(req: NextRequest) {
         ...orderData,
         paymentStatus: "paid",
         paymentMethod: event.data.channel,
-        bank: event.data.authorization.bank,
-        paidAt: event.data.paidAt,
+        bank: event.data.authorization?.bank || null,
+        paidAt: paidAt.toISOString(),
+        estimatedDelivery,
         updatedAt: new Date().toISOString(),
       });
     // Delete the order from 'pending-orders'

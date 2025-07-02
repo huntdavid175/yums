@@ -19,7 +19,6 @@ export default async function PaymentSuccessPage({
   const orderDetails = { id: docSnap.id, ...docSnap.data() };
 
   console.log(orderDetails);
-
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

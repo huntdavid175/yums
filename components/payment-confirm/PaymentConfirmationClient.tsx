@@ -15,30 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 
 const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
-  const { cartItems, cartTotal, clearCart } = useCart();
-  const [orderNumber, setOrderNumber] = useState("");
-  const [estimatedDelivery, setEstimatedDelivery] = useState("");
-
-  // Generate a random order number and estimated delivery time on page load
-  useEffect(() => {
-    // Generate random order number
-    const randomOrderNum = Math.floor(10000 + Math.random() * 90000);
-    setOrderNumber(`DJF-${randomOrderNum}`);
-
-    // Calculate estimated delivery time (paidAt + 40 minutes)
-    const paidAt = new Date(orderDetails.paidAt);
-    const deliveryTime = new Date(paidAt.getTime() + 40 * 60000); // 40 minutes
-    const hours = deliveryTime.getHours();
-    const minutes = deliveryTime.getMinutes();
-    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-    const amPm = hours >= 12 ? "PM" : "AM";
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    setEstimatedDelivery(`${formattedHours}:${formattedMinutes} ${amPm}`);
-
-    // Clear the cart after successful payment
-    // In a real app, you might want to do this only after confirming with the backend
-    clearCart();
-  }, [clearCart, orderDetails.paidAt]);
+  // Calculate estimated delivery time (paidAt + 40 minutes)
 
   // Helper function to determine if a step is completed based on order status
   const isStepCompleted = (step: string) => {
@@ -105,7 +82,9 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                 </div>
                 <div>
                   <h3 className="font-medium">Estimated Delivery</h3>
-                  <p className="text-gray-600">Today, {estimatedDelivery}</p>
+                  <p className="text-gray-600">
+                    Today, {orderDetails.estimatedDelivery}
+                  </p>
                 </div>
               </div>
 
@@ -119,7 +98,7 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                 <div>
                   <h3 className="font-medium">Delivery Address</h3>
                   <p className="text-gray-600">
-                    {orderDetails.deliveryAddress.street}
+                    {orderDetails.deliveryAddress?.street}
                   </p>
                 </div>
               </div>
@@ -274,7 +253,10 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
 
             <div className="space-y-4">
               {orderDetails.items.map((item: any) => (
-                <div className="flex justify-between pb-4 border-b border-gray-100">
+                <div
+                  className="flex justify-between pb-4 border-b border-gray-100"
+                  key={item.itemId}
+                >
                   <span>
                     {item.name} × {item.quantity}
                   </span>
