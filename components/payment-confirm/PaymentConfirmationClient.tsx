@@ -20,28 +20,108 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
   // Helper function to determine if a step is completed based on order status
   const isStepCompleted = (step: string) => {
     const status = orderDetails.status;
-    switch (step) {
-      case "confirmed":
-        return (
-          status === "pending" ||
-          status === "preparing" ||
-          status === "ready" ||
-          status === "on-the-way" ||
-          status === "delivered"
-        );
-      case "preparing":
-        return (
-          status === "preparing" ||
-          status === "ready" ||
-          status === "on-the-way" ||
-          status === "delivered"
-        );
-      case "on-the-way":
-        return status === "on-the-way" || status === "delivered";
-      case "delivered":
-        return status === "delivered";
-      default:
-        return false;
+    const orderType = orderDetails.orderType;
+
+    if (orderType === "pickup") {
+      switch (step) {
+        case "confirmed":
+          return (
+            status === "pending" ||
+            status === "preparing" ||
+            status === "ready" ||
+            status === "picked-up"
+          );
+        case "preparing":
+          return (
+            status === "preparing" ||
+            status === "ready" ||
+            status === "picked-up"
+          );
+        case "ready-for-pickup":
+          return status === "ready" || status === "picked-up";
+        case "picked-up":
+          return status === "picked-up";
+        default:
+          return false;
+      }
+    } else {
+      // Delivery order
+      switch (step) {
+        case "confirmed":
+          return (
+            status === "pending" ||
+            status === "preparing" ||
+            status === "ready" ||
+            status === "on-the-way" ||
+            status === "delivered"
+          );
+        case "preparing":
+          return (
+            status === "preparing" ||
+            status === "ready" ||
+            status === "on-the-way" ||
+            status === "delivered"
+          );
+        case "on-the-way":
+          return status === "on-the-way" || status === "delivered";
+        case "delivered":
+          return status === "delivered";
+        default:
+          return false;
+      }
+    }
+  };
+
+  // Get the appropriate progress steps based on order type
+  const getProgressSteps = () => {
+    const orderType = orderDetails.orderType;
+
+    if (orderType === "pickup") {
+      return [
+        {
+          id: "confirmed",
+          title: "Order Confirmed",
+          description: "Your order has been received",
+        },
+        {
+          id: "preparing",
+          title: "Preparing",
+          description: "Your food is being prepared",
+        },
+        {
+          id: "ready-for-pickup",
+          title: "Ready for Pickup",
+          description: "Your order is ready for pickup",
+        },
+        {
+          id: "picked-up",
+          title: "Picked Up",
+          description: "Order completed!",
+        },
+      ];
+    } else {
+      return [
+        {
+          id: "confirmed",
+          title: "Order Confirmed",
+          description: "Your order has been received",
+        },
+        {
+          id: "preparing",
+          title: "Preparing",
+          description: "Your food is being prepared",
+        },
+        {
+          id: "on-the-way",
+          title: "On the Way",
+          description: "Your order is on its way to you",
+        },
+        {
+          id: "delivered",
+          title: "Delivered",
+          description: "Enjoy your meal!",
+        },
+      ];
     }
   };
 
@@ -81,7 +161,12 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-medium">Estimated Delivery</h3>
+                  <h3 className="font-medium">
+                    Estimated{" "}
+                    {orderDetails.orderType === "pickup"
+                      ? "Pickup"
+                      : "Delivery"}
+                  </h3>
                   <p className="text-gray-600">
                     Today, {orderDetails.estimatedDelivery}
                   </p>
@@ -95,12 +180,23 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                     <MapPin className="h-5 w-5 text-blue-600" />
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-medium">Delivery Address</h3>
-                  <p className="text-gray-600">
-                    {orderDetails.deliveryAddress?.street}
-                  </p>
-                </div>
+                {orderDetails.orderType === "pickup" ? (
+                  <div>
+                    <h3 className="font-medium">Pickup Address</h3>
+                    <p className="text-gray-600">
+                      {/* {orderDetails.deliveryAddress?.street} */}
+                      East Legon, Bawaleshie
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    {" "}
+                    <h3 className="font-medium">Delivery Address</h3>
+                    <p className="text-gray-600">
+                      {orderDetails.deliveryAddress?.street}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Order Progress */}
@@ -109,138 +205,43 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                 <div className="relative">
                   <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gray-200"></div>
                   <div className="space-y-8">
-                    <div className="relative flex items-start">
-                      <div className="flex-shrink-0 mr-4">
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
-                            isStepCompleted("confirmed")
-                              ? "bg-[#FF6B00]"
-                              : "bg-gray-200"
-                          }`}
-                        >
-                          <CheckCircle
-                            className={`h-5 w-5 ${
-                              isStepCompleted("confirmed")
-                                ? "text-white"
-                                : "text-gray-400"
-                            }`}
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <h4
-                          className={`font-medium ${
-                            isStepCompleted("confirmed")
-                              ? "text-gray-900"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          Order Confirmed
-                        </h4>
-                        <p className="text-sm text-gray-500">
-                          Your order has been received
-                        </p>
-                      </div>
-                    </div>
-                    <div className="relative flex items-start">
-                      <div className="flex-shrink-0 mr-4">
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
-                            isStepCompleted("preparing")
-                              ? "bg-[#FF6B00]"
-                              : "bg-gray-200"
-                          }`}
-                        >
+                    {getProgressSteps().map((step, index) => (
+                      <div key={step.id} className="relative flex items-start">
+                        <div className="flex-shrink-0 mr-4">
                           <div
-                            className={`w-3 h-3 rounded-full ${
-                              isStepCompleted("preparing")
-                                ? "bg-white"
-                                : "bg-gray-400"
+                            className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
+                              isStepCompleted(step.id)
+                                ? "bg-[#FF6B00]"
+                                : "bg-gray-200"
                             }`}
-                          ></div>
+                          >
+                            {isStepCompleted(step.id) ? (
+                              <CheckCircle className="h-5 w-5 text-white" />
+                            ) : (
+                              <div
+                                className={`w-3 h-3 rounded-full ${
+                                  index === 0 ? "bg-[#FF6B00]" : "bg-gray-400"
+                                }`}
+                              ></div>
+                            )}
+                          </div>
+                        </div>
+                        <div>
+                          <h4
+                            className={`font-medium ${
+                              isStepCompleted(step.id)
+                                ? "text-gray-900"
+                                : "text-gray-500"
+                            }`}
+                          >
+                            {step.title}
+                          </h4>
+                          <p className="text-sm text-gray-500">
+                            {step.description}
+                          </p>
                         </div>
                       </div>
-                      <div>
-                        <h4
-                          className={`font-medium ${
-                            isStepCompleted("preparing")
-                              ? "text-gray-900"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          Preparing
-                        </h4>
-                        <p className="text-sm text-gray-500">
-                          Your food is being prepared
-                        </p>
-                      </div>
-                    </div>
-                    <div className="relative flex items-start">
-                      <div className="flex-shrink-0 mr-4">
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
-                            isStepCompleted("on-the-way")
-                              ? "bg-[#FF6B00]"
-                              : "bg-gray-200"
-                          }`}
-                        >
-                          <div
-                            className={`w-3 h-3 rounded-full ${
-                              isStepCompleted("on-the-way")
-                                ? "bg-white"
-                                : "bg-gray-400"
-                            }`}
-                          ></div>
-                        </div>
-                      </div>
-                      <div>
-                        <h4
-                          className={`font-medium ${
-                            isStepCompleted("on-the-way")
-                              ? "text-gray-900"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          On the Way
-                        </h4>
-                        <p className="text-sm text-gray-500">
-                          Your order is on its way to you
-                        </p>
-                      </div>
-                    </div>
-                    <div className="relative flex items-start">
-                      <div className="flex-shrink-0 mr-4">
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
-                            isStepCompleted("delivered")
-                              ? "bg-[#FF6B00]"
-                              : "bg-gray-200"
-                          }`}
-                        >
-                          <div
-                            className={`w-3 h-3 rounded-full ${
-                              isStepCompleted("delivered")
-                                ? "bg-white"
-                                : "bg-gray-400"
-                            }`}
-                          ></div>
-                        </div>
-                      </div>
-                      <div>
-                        <h4
-                          className={`font-medium ${
-                            isStepCompleted("delivered")
-                              ? "text-gray-900"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          Delivered
-                        </h4>
-                        <p className="text-sm text-gray-500">
-                          Enjoy your meal!
-                        </p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>

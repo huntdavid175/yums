@@ -1,6 +1,7 @@
-export const getDeliveryTime = (paidAtTime: any) => {
+export const getDeliveryTime = (paidAtTime: any, orderType: string) => {
+  const timeToAdd = orderType === "pickup" ? 20 : 40;
   const paidAt = new Date(paidAtTime);
-  const deliveryTime = new Date(paidAt.getTime() + 40 * 60000); // 40 minutes
+  const deliveryTime = new Date(paidAt.getTime() + timeToAdd * 60000); // 40 minutes
   console.log(deliveryTime);
   return deliveryTime;
 };
