@@ -64,11 +64,13 @@ export default function CartPage() {
                           </div>
 
                           <div className="flex-1">
-                            <h3 className="font-medium text-lg">{item.name}</h3>
-                            <p className="text-sm text-gray-500 mb-2">
+                            <h3 className="font-medium text-sm md:text-base">
+                              {item.name}
+                            </h3>
+                            <p className="text-xs text-gray-500 mb-2">
                               {item.category}
                             </p>
-                            <p className="text-[#FF6B00] font-bold">
+                            <p className="text-[#FF6B00] font-bold text-sm md:text-base">
                               {item.price}
                             </p>
 
@@ -83,7 +85,7 @@ export default function CartPage() {
                                 <Minus className="h-4 w-4" />
                               </button>
 
-                              <div className="w-10 mx-2 text-center font-medium">
+                              <div className="w-10 mx-2 text-center font-medium text-sm">
                                 {item.quantity}
                               </div>
 
@@ -117,20 +119,20 @@ export default function CartPage() {
               <div className="lg:col-span-1">
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                   <div className="p-6">
-                    <h2 className="text-xl font-semibold mb-4">
+                    <h2 className="text-base font-semibold mb-4">
                       Order Summary
                     </h2>
 
                     <div className="space-y-4">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Subtotal</span>
+                      <div className="flex justify-between text-sm md:text-base">
+                        <span className="text-gray-600 ">Subtotal</span>
                         <span className="font-medium">
                           GH₵{cartTotal.toFixed(2)}
                         </span>
                       </div>
 
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Delivery Fee</span>
+                      <div className="flex justify-between text-sm md:text-base">
+                        <span className="text-gray-600 ">Delivery Fee</span>
                         <span className="font-medium">
                           GH₵{deliveryFee.toFixed(2)}
                         </span>

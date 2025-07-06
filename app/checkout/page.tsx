@@ -90,8 +90,6 @@ export default function CheckoutPage() {
           },
         }
       );
-
-      console.log(payment.onSuccess);
     }
 
     // Simulate payment processing or redirect to success page
@@ -146,7 +144,9 @@ export default function CheckoutPage() {
             <div className="lg:col-span-2 space-y-6">
               {/* Delivery Options */}
               <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
-                <h2 className="text-xl font-semibold mb-4">Delivery Options</h2>
+                <h2 className="text-base md:text-lg font-semibold mb-4">
+                  Delivery Options
+                </h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div
                     className={`border rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
@@ -156,8 +156,10 @@ export default function CheckoutPage() {
                     }`}
                     onClick={() => setDeliveryMethod("delivery")}
                   >
-                    <Truck className="h-8 w-8 text-[#FF6B00] mb-2" />
-                    <span className="font-medium">Delivery</span>
+                    <Truck className="h-6 w-6 md:h-8 md:w-8 text-[#FF6B00] mb-2" />
+                    <span className="font-medium text-sm md:text-base">
+                      Delivery
+                    </span>
                   </div>
                   <div
                     className={`border rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
@@ -167,15 +169,17 @@ export default function CheckoutPage() {
                     }`}
                     onClick={() => setDeliveryMethod("pickup")}
                   >
-                    <MapPin className="h-8 w-8 text-[#FF6B00] mb-2" />
-                    <span className="font-medium">Pickup</span>
+                    <MapPin className=" h-6 w-6 md:h-8 md:w-8 text-[#FF6B00] mb-2" />
+                    <span className="font-medium text-sm md:text-base">
+                      Pickup
+                    </span>
                   </div>
                 </div>
               </div>
 
               {/* Personal Information */}
               <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="text-lg md:text-xl font-semibold mb-4">
                   Personal Information
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -189,7 +193,7 @@ export default function CheckoutPage() {
                         id="fullName"
                         type="text"
                         placeholder="Enter your full name"
-                        className="pl-10"
+                        className="pl-10 text-xs md:text-sm"
                         ref={fullNameRef}
                         required
                       />
@@ -233,7 +237,7 @@ export default function CheckoutPage() {
                       <Input
                         id="phone"
                         type="tel"
-                        className={`rounded-l-none ${
+                        className={`rounded-l-none text-xs md:text-sm ${
                           formErrors.phone ? "border-red-500" : ""
                         }`}
                         placeholder="Phone number"
@@ -259,7 +263,7 @@ export default function CheckoutPage() {
                       id="email"
                       type="email"
                       placeholder="Enter your email address"
-                      className="pl-10"
+                      className="pl-10 text-xs md:text-sm"
                       required
                       ref={emailRef}
                     />
@@ -270,7 +274,7 @@ export default function CheckoutPage() {
               {/* Delivery Address */}
               {deliveryMethod === "delivery" && (
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
-                  <h2 className="text-xl font-semibold mb-4">
+                  <h2 className="text-lg md:text-xl font-semibold mb-4">
                     Delivery Address
                   </h2>
                   <div className="mb-4">
@@ -281,7 +285,7 @@ export default function CheckoutPage() {
                       <Input
                         type="text"
                         placeholder="Please select your location"
-                        className={`pl-10 ${
+                        className={`pl-10 text-xs md:text-sm ${
                           formErrors.address ? "border-red-500" : ""
                         }`}
                         required
@@ -309,7 +313,9 @@ export default function CheckoutPage() {
               {/* Delivery Speed */}
               {deliveryMethod === "delivery" && (
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
-                  <h2 className="text-xl font-semibold mb-4">Delivery Speed</h2>
+                  <h2 className="text-lg md:text-xl font-semibold mb-4">
+                    Delivery Speed
+                  </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div
                       className={`border rounded-lg p-4 cursor-pointer transition-colors ${
@@ -337,12 +343,16 @@ export default function CheckoutPage() {
                           </svg>
                         </div>
                         <div>
-                          <h3 className="font-medium">Express Delivery</h3>
-                          <p className="text-sm text-gray-500">20-30 min</p>
-                          <p className="text-sm text-gray-500 mt-1">
+                          <h3 className="font-medium text-sm md:text-base">
+                            Express Delivery
+                          </h3>
+                          <p className="text-xs md:text-sm text-gray-500">
+                            20-30 min
+                          </p>
+                          <p className="text-xs md:text-sm text-gray-500 mt-1">
                             Not available in your area
                           </p>
-                          <p className="text-[#FF6B00] font-medium mt-2">
+                          <p className="text-[#FF6B00] font-medium mt-2 text-sm md:text-base">
                             GH₵50.00
                           </p>
                         </div>
@@ -376,9 +386,13 @@ export default function CheckoutPage() {
                           </svg>
                         </div>
                         <div>
-                          <h3 className="font-medium">Standard Delivery</h3>
-                          <p className="text-sm text-gray-500">40-60 min</p>
-                          <p className="text-sm text-gray-500 mt-1">
+                          <h3 className="font-medium text-sm md:text-base">
+                            Standard Delivery
+                          </h3>
+                          <p className="text-xs md:textsm text-gray-500">
+                            40-60 min
+                          </p>
+                          <p className="text-xs md:text-sm text-gray-500 mt-1">
                             Pay delivery fee on arrival
                           </p>
                         </div>
@@ -392,13 +406,15 @@ export default function CheckoutPage() {
             {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6 sticky top-24">
-                <h2 className="text-xl font-semibold mb-6">Order Breakdown</h2>
+                <h2 className="text-lg lg:text-xl font-semibold mb-6">
+                  Order Breakdown
+                </h2>
 
                 <div className="space-y-4">
                   {cartItems.map((item) => (
                     <div
                       key={item.id}
-                      className="flex justify-between pb-4 border-b border-gray-100"
+                      className="flex justify-between pb-4 border-b border-gray-100 text-sm lg:text-base "
                     >
                       <span>
                         {item.name} × {item.quantity}
@@ -413,7 +429,7 @@ export default function CheckoutPage() {
                     </div>
                   ))}
 
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-sm md:text-base ">
                     <span className="text-gray-600">
                       Estimated Delivery Fee
                     </span>
@@ -425,7 +441,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="border-t border-gray-200 pt-4 mt-4">
-                    <div className="flex justify-between font-bold">
+                    <div className="flex justify-between font-bold text-sm md:text-base">
                       <span>Subtotal</span>
                       <span className="text-[#FF6B00]">
                         GH₵{total.toFixed(2)}
@@ -469,7 +485,7 @@ export default function CheckoutPage() {
                     )}
                   </Button>
 
-                  <p className="text-sm text-gray-500 text-center mt-4">
+                  <p className="text-xs md:text-sm text-gray-500 text-center mt-4">
                     By completing this purchase, you agree to our{" "}
                     <Link
                       href="/terms"
