@@ -3,6 +3,9 @@ import { Footer } from "@/components/Footer";
 import { db } from "@/lib/firebaseAdmin";
 import StoreClient from "@/components/store/StoreClient";
 
+// Revalidate every 60 seconds
+export const revalidate = 60;
+
 export default async function StorePage() {
   // Fetch products from Firestore server-side
   const snapshot = await db.collection("menuItems").get();
