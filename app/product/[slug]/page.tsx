@@ -18,13 +18,23 @@ export default async function ProductPage({
 
   const { slug } = await params;
 
-  const docRef = db.collection("food-items").doc(slug);
+  const docRef = db.collection("menuItems").doc(slug);
   const docSnap = await docRef.get();
   if (!docSnap.exists) {
     // Handle not found
     return <FoodNotFound />;
   }
-  const product = { id: docSnap.id, ...docSnap.data() };
+  const data = docSnap.data() || {};
+  const product = {
+    id: docSnap.id,
+    ...data,
+    createdAt: data.createdAt?.toDate
+      ? data.createdAt.toDate().toISOString()
+      : data.createdAt ?? null,
+    updatedAt: data.updatedAt?.toDate
+      ? data.updatedAt.toDate().toISOString()
+      : data.updatedAt ?? null,
+  };
 
   console.log(product);
   return (

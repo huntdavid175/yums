@@ -28,7 +28,7 @@ interface Extra {
 
 interface Size {
   id: string;
-  type: string;
+  name: string;
   price: number;
 }
 
@@ -39,30 +39,16 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
   const { addToCart } = useCart();
 
   // This would normally come from a database or API based on the slug
-  const product = {
-    id: "chicken-enumde-original",
-    name: "Chicken enumde original",
-    category: "Big Trays (Ɛnumde)",
-    basePrice: 150.0,
-    description:
-      "Jollof, fried rice, chicken, eggs, plantains, sautéed vegetables and sausages.",
-    detailedDescription:
-      "5 servings of jollof, 5 servings of fried rice, 10 servings of chicken drumsticks, 10 servings of chicken wings, 20 yam balls, 10 spring rolls, 10 bottles of pineapple juice.",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/0/0a/Jollof_Rice_with_Stew.jpg",
-      "https://africanchopbetter.com/wp-content/uploads/sites/110/2024/04/fried-rice-and-chicken.jpg",
-    ],
-  };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+    setCurrentImageIndex((prev) => (prev + 1) % foodData?.images.length);
   };
 
   const prevImage = () => {
     setCurrentImageIndex(
-      (prev) => (prev - 1 + product.images.length) % product.images.length
+      (prev) => (prev - 1 + foodData?.images.length) % foodData?.images.length
     );
   };
 
@@ -93,7 +79,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
       return total + (extra ? extra.price : 0);
     }, 0);
 
-    return product.basePrice + sizePrice + extrasPrice;
+    return foodData.price + sizePrice + extrasPrice;
   };
 
   const handleAddToCart = () => {
@@ -115,15 +101,15 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
 
     const productName =
       customizations.length > 0
-        ? `${product.name} (${customizations.join(", ")})`
-        : product.name;
+        ? `${foodData.name} (${customizations.join(", ")})`
+        : foodData.name;
 
     addToCart(
       {
         id: foodData.id,
         name: productName,
         price: `GH₵${totalPrice.toFixed(2)}`,
-        image: product.images[0],
+        image: foodData.image,
         category: foodData.category,
         extras: selectedExtras,
         size: selectedSize,
@@ -147,16 +133,14 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
               <div className="relative">
                 <div className="aspect-square relative rounded-lg overflow-hidden">
                   <Image
-                    src={
-                      product.images[currentImageIndex] || "/placeholder.svg"
-                    }
-                    alt={product.name}
+                    src={foodData.image || "/placeholder.svg"}
+                    alt={foodData.name}
                     fill
                     className="object-cover"
                   />
 
                   {/* Navigation Arrows */}
-                  <button
+                  {/* <button
                     onClick={prevImage}
                     className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-md"
                     aria-label="Previous image"
@@ -170,12 +154,12 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                     aria-label="Next image"
                   >
                     <ChevronRight className="h-5 w-5 text-gray-700" />
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* Thumbnails */}
-                <div className="flex mt-4 space-x-2">
-                  {product.images.map((image, index) => (
+                {/* <div className="flex mt-4 space-x-2">
+                  {foodData?.images.map((image: string, index: number) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
@@ -193,12 +177,12 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                       />
                     </button>
                   ))}
-                </div>
+                </div> */}
               </div>
 
               {/* Product Details */}
               <div>
-                <h1 className="text-3xl font-bold mb-2">{foodData.foodName}</h1>
+                <h1 className="text-3xl font-bold mb-2">{foodData.name}</h1>
                 <div className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">
                   {foodData.category}
                 </div>
@@ -264,7 +248,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                         }`}
                       >
                         <div className="font-medium text-gray-900">
-                          {size.type}
+                          {size.name}
                         </div>
                         <div className="text-[#FF6B00] font-bold">
                           {size.price === 0

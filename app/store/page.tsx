@@ -6,7 +6,7 @@ import { db } from "@/lib/firebaseAdmin";
 
 export default async function StorePage() {
   // Fetch products from Firestore server-side
-  const snapshot = await db.collection("food-items").get();
+  const snapshot = await db.collection("menuItems").get();
   const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
   return (
@@ -76,7 +76,7 @@ export default async function StorePage() {
                 key={item.id}
                 id={item.id}
                 image={item.image || "/placeholder.svg?height=400&width=400"}
-                title={item.title}
+                title={item.name}
                 price={item.price}
                 category={item.category}
                 badge={item.badge}

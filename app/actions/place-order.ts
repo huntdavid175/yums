@@ -38,7 +38,7 @@ const calculateOrderTotal = async (cartItems: any[]) => {
   let grandTotal = 0;
 
   for (const cartItem of cartItems) {
-    const docRef = db.collection("food-items").doc(cartItem.id);
+    const docRef = db.collection("menuItems").doc(cartItem.id);
     const docSnap = await docRef.get();
     if (!docSnap.exists) throw new Error(`Product not found: ${cartItem.id}`);
     const product = docSnap.data();
@@ -85,7 +85,7 @@ const createOrder = async (
 
   for (const cartItem of cartItems) {
     // Fetch product from Firestore
-    const docRef = db.collection("food-items").doc(cartItem.id);
+    const docRef = db.collection("menuItems").doc(cartItem.id);
     const docSnap = await docRef.get();
     if (!docSnap.exists) throw new Error(`Product not found: ${cartItem.id}`);
     const product = docSnap.data();

@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       "aftradvillagekitchen.co.uk",
       "i0.wp.com",
       "static01.nyt.com",
+      "images.ctfassets.net",
+      "www.eatingonadime.com",
     ],
   },
 };
