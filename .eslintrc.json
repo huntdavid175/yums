@@ -1,0 +1,8 @@
+// .eslintrc.json
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    // Disable common strict rules
+    "@typescript-eslint/no-explicit-any": "off"
+  }
+}
