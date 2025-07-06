@@ -9,7 +9,7 @@ import { FoodNotFound } from "@/components/FoodNotFound";
 export default async function ProductPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   // const docRef = db.collection("products").doc(params.slug);
   // const docSnap = await docRef.get();
