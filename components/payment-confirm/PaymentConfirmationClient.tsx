@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   CheckCircle,
@@ -9,10 +9,10 @@ import {
   Printer,
   Home,
 } from "lucide-react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+// import { Header } from "@/components/Header";
+// import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/context/CartContext";
+// import { useCart } from "@/context/CartContext";
 
 const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
   // Calculate estimated delivery time (paidAt + 40 minutes)
@@ -126,7 +126,7 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
   };
 
   // Delivery fee and total
-  const deliveryFee = "Pay at delivery";
+  // const deliveryFee = "Pay at delivery";
   //   const total = cartTotal + deliveryFee
   return (
     <div>

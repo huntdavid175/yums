@@ -2,16 +2,16 @@
 
 import { useCart } from "@/context/CartContext";
 import React, { useState } from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+// import { Header } from "@/components/Header";
+// import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ChevronLeft,
-  ChevronRight,
+  // ChevronLeft,
+  // ChevronRight,
   Minus,
   Plus,
   Sparkles,
@@ -40,17 +40,17 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
 
   // This would normally come from a database or API based on the slug
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % foodData?.images.length);
-  };
+  // const nextImage = () => {
+  //   setCurrentImageIndex((prev) => (prev + 1) % foodData?.images.length);
+  // };
 
-  const prevImage = () => {
-    setCurrentImageIndex(
-      (prev) => (prev - 1 + foodData?.images.length) % foodData?.images.length
-    );
-  };
+  // const prevImage = () => {
+  //   setCurrentImageIndex(
+  //     (prev) => (prev - 1 + foodData?.images.length) % foodData?.images.length
+  //   );
+  // };
 
   const incrementQuantity = () => {
     setQuantity((prev) => prev + 1);

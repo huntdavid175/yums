@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MapPin, Truck, X, CreditCard, User, Mail } from "lucide-react";
+import { MapPin, Truck, CreditCard, User, Mail } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import { useCart } from "@/context/CartContext";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { calculateOrderTotal, createOrder } from "../actions/place-order";
+import { createOrder } from "../actions/place-order";
 
 export default function CheckoutPage() {
   const router = useRouter();

@@ -21,11 +21,12 @@ export function FoodNotFound() {
           Oops! Dish Not Found
         </h1>
         <p className="text-gray-600 mb-2 leading-relaxed">
-          We couldn't find the delicious meal you're looking for. It might have
-          been removed from our menu or the link might be incorrect.
+          We couldn&apos;t find the delicious meal you&apos;re looking for. It
+          might have been removed from our menu or the link might be incorrect.
         </p>
         <p className="text-gray-500 text-sm mb-8">
-          Don't worry, we have plenty of other amazing dishes waiting for you!
+          Don&apos;t worry, we have plenty of other amazing dishes waiting for
+          you!
         </p>
 
         {/* Action Buttons */}
@@ -64,8 +65,8 @@ export function FoodNotFound() {
             </span>
           </div>
           <p className="text-xs text-gray-500">
-            Try searching for "jollof", "chicken", or browse our categories to
-            find your perfect meal.
+            Try searching for &quot;jollof&quot;, &quot;chicken&quot;, or browse
+            our categories to find your perfect meal.
           </p>
         </div>
 
