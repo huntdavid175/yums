@@ -144,7 +144,9 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
             </p>
             <div className="inline-block bg-gray-100 rounded-lg px-4 py-2 font-medium">
               Order Number:{" "}
-              <span className="text-[#FF6B00]">{orderDetails.id}</span>
+              <span className="text-[#FF6B00]">
+                #{orderDetails.orderNumber}
+              </span>
             </div>
           </div>
 

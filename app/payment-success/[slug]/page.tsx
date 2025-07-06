@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { db } from "@/lib/firebaseAdmin";
+import { notFound } from "next/navigation";
 
 import PaymentConfirmationClient from "@/components/payment-confirm/PaymentConfirmationClient";
 
@@ -11,11 +12,14 @@ export default async function PaymentSuccessPage({
 }) {
   const { slug } = await params;
 
+  // Query orders by document ID (orderId)
   const docRef = db.collection("orders").doc(slug);
   const docSnap = await docRef.get();
+
   if (!docSnap.exists) {
-    // Handle not found
+    notFound();
   }
+
   const orderDetails = { id: docSnap.id, ...docSnap.data() };
 
   console.log(orderDetails);
