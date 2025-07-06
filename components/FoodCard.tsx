@@ -41,8 +41,10 @@ export function FoodCard({
           )}
         </div>
         <div className="p-4">
-          <h3 className="font-medium text-lg mb-2">{title}</h3>
-          <p className="text-[#FF6B00] font-bold">GH₵{price}</p>
+          <h3 className="font-medium text-sm md:text-base mb-2">{title}</h3>
+          <p className="text-[#FF6B00] font-bold text-xs md:text-sm">
+            GH₵{price}
+          </p>
         </div>
       </div>
     </Link>

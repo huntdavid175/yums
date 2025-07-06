@@ -182,12 +182,14 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
 
               {/* Product Details */}
               <div>
-                <h1 className="text-3xl font-bold mb-2">{foodData.name}</h1>
-                <div className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">
+                <h1 className="text-xl md:text-3xl font-bold mb-2">
+                  {foodData.name}
+                </h1>
+                <div className="inline-block bg-blue-100 text-blue-800 text-xs  px-3 py-1 rounded-full mb-4">
                   {foodData.category}
                 </div>
 
-                <h2 className="text-4xl font-bold mb-4 text-gray-900">
+                <h2 className="text-lg md:text-2xl font-bold mb-4 text-gray-900">
                   GH₵{calculateTotalPrice().toFixed(2)}
                 </h2>
 
@@ -206,7 +208,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                 <div className="mb-6">
                   <div className="flex items-center mb-4">
                     <Sparkles className="h-5 w-5 text-yellow-500 mr-2" />
-                    <h3 className="text-xl font-bold">Choose Extras</h3>
+                    <h3 className="text-base font-bold">Choose Extras</h3>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
                     {foodData.extras.map((extra: Extra) => (
@@ -219,10 +221,10 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                             : "border-gray-200 hover:border-gray-300"
                         }`}
                       >
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-xs md:text-sm text-gray-900">
                           {extra.name}
                         </div>
-                        <div className="text-[#FF6B00] font-bold">
+                        <div className="text-[#FF6B00] text-xs md:text-sm font-bold">
                           GH₵{extra.price.toFixed(2)}
                         </div>
                       </button>
@@ -234,7 +236,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                 <div className="mb-6">
                   <div className="flex items-center mb-4">
                     <Ruler className="h-5 w-5 text-gray-600 mr-2" />
-                    <h3 className="text-xl font-bold">Sizes Available</h3>
+                    <h3 className="text-base font-bold">Sizes Available</h3>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {foodData.sizes.map((size: Size) => (
@@ -247,10 +249,10 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                             : "border-gray-200 hover:border-gray-300"
                         }`}
                       >
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-xs md:text-sm text-gray-900">
                           {size.name}
                         </div>
-                        <div className="text-[#FF6B00] font-bold">
+                        <div className="text-[#FF6B00] text-xs md:text-sm font-bold">
                           {size.price === 0
                             ? "Standard"
                             : size.price > 0
@@ -265,7 +267,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                 {/* Quantity Selector and Add to Cart */}
                 <div className="flex flex-col space-y-4">
                   <div className="flex items-center">
-                    <span className="text-gray-700 font-medium mr-4">
+                    <span className="text-gray-700 font-medium mr-4 text-sm md:text-base">
                       Quantity:
                     </span>
                     <button
@@ -276,7 +278,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                       <Minus className="h-4 w-4" />
                     </button>
 
-                    <div className="w-12 mx-2 text-center font-medium text-lg">
+                    <div className="w-12 mx-2 text-center font-medium text-sm md:text-base">
                       {quantity}
                     </div>
 
@@ -297,7 +299,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                   </div>
 
                   <Button
-                    className="w-full bg-[#FF6B00] hover:bg-[#e05f00] text-white"
+                    className="w-full bg-[#FF6B00] hover:bg-[#e05f00] text-white mt-6"
                     onClick={handleAddToCart}
                   >
                     <ShoppingCart className="mr-2 h-4 w-4" /> Add To Cart
