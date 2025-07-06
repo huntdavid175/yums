@@ -193,7 +193,7 @@ export default function CheckoutPage() {
                         id="fullName"
                         type="text"
                         placeholder="Enter your full name"
-                        className="pl-10 text-xs md:text-sm"
+                        className="pl-10 "
                         ref={fullNameRef}
                         required
                       />
@@ -237,7 +237,7 @@ export default function CheckoutPage() {
                       <Input
                         id="phone"
                         type="tel"
-                        className={`rounded-l-none text-xs md:text-sm ${
+                        className={`rounded-l-none ${
                           formErrors.phone ? "border-red-500" : ""
                         }`}
                         placeholder="Phone number"
@@ -263,7 +263,7 @@ export default function CheckoutPage() {
                       id="email"
                       type="email"
                       placeholder="Enter your email address"
-                      className="pl-10 text-xs md:text-sm"
+                      className="pl-10"
                       required
                       ref={emailRef}
                     />
@@ -285,7 +285,7 @@ export default function CheckoutPage() {
                       <Input
                         type="text"
                         placeholder="Please select your location"
-                        className={`pl-10 text-xs md:text-sm ${
+                        className={`pl-10  ${
                           formErrors.address ? "border-red-500" : ""
                         }`}
                         required
