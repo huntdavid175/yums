@@ -360,17 +360,20 @@ export default function CheckoutPage() {
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div
-                      className={`border rounded-lg p-4 cursor-pointer transition-colors ${
+                      className={`border rounded-lg p-4 cursor-not-allowed transition-colors opacity-50 ${
                         deliverySpeed === "express"
-                          ? "border-red-500 bg-red-50"
-                          : "border-gray-200 hover:border-gray-300"
+                          ? "border-gray-300 bg-gray-100"
+                          : "border-gray-200 bg-gray-50"
                       }`}
-                      onClick={() => setDeliverySpeed("express")}
+                      onClick={() => {
+                        // Disable express delivery for now
+                        // setDeliverySpeed("express")
+                      }}
                     >
                       <div className="flex items-start">
                         <div className="flex-shrink-0 mr-3">
                           <svg
-                            className="w-6 h-6 text-54d-500"
+                            className="w-6 h-6 text-gray-400"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -385,16 +388,16 @@ export default function CheckoutPage() {
                           </svg>
                         </div>
                         <div>
-                          <h3 className="font-medium text-sm md:text-base">
+                          <h3 className="font-medium text-sm md:text-base text-gray-500">
                             Express Delivery
                           </h3>
-                          <p className="text-xs md:text-sm text-gray-500">
+                          <p className="text-xs md:text-sm text-gray-400">
                             20-30 min
                           </p>
-                          <p className="text-xs md:text-sm text-gray-500 mt-1">
-                            Not available in your area
+                          <p className="text-xs md:text-sm text-red-500 mt-1 font-medium">
+                            Currently Unavailable
                           </p>
-                          <p className="text-red-500 font-medium mt-2 text-sm md:text-base">
+                          <p className="text-gray-400 font-medium mt-2 text-sm md:text-base">
                             GH₵50.00
                           </p>
                         </div>
