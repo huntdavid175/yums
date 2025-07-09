@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -25,7 +26,7 @@ export default function Home() {
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
           <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-red-200/50 rounded-full px-4 py-2 mb-6 shadow-lg">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-gray-700 ">
               🔥 Now delivering in 30 minutes!
             </span>
           </div>
@@ -42,9 +43,12 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
             <span className="text-red-500">YUMS</span> DELICACIES
           </h1>
-          <Button className="mt-6 bg-red-600 hover:bg-red-700 text-white rounded-full px-8">
+          <Link
+            href="/store"
+            className="mt-6 bg-red-600 hover:bg-red-700 text-white rounded-full px-6 py-2 inline-block font-medium transition-colors"
+          >
             Order here→
-          </Button>
+          </Link>
         </div>
       </section>
 
