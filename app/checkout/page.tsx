@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { createOrder } from "../actions/place-order";
 import { formatCurrency } from "@/helpers/helper";
 import { motion } from "framer-motion";
+import GoogleMapsAutocomplete from "@/components/ui/GoogleMapsAutocomplete";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -31,6 +32,11 @@ export default function CheckoutPage() {
     phone: false,
   });
   const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<{
+    lat: number;
+    lng: number;
+    address: string;
+  } | null>(null);
 
   // Refs for form fields
   const fullNameRef = useRef<HTMLInputElement>(null);
@@ -50,7 +56,8 @@ export default function CheckoutPage() {
     const customerName = fullNameRef.current?.value || "";
     const customerPhone = phoneRef.current?.value || "";
     const customerEmail = emailRef.current?.value || "";
-    const address = addressRef.current?.value || "";
+    const address =
+      selectedLocation?.address || addressRef.current?.value || "";
 
     // Validate required fields
     const errors = {
@@ -77,6 +84,15 @@ export default function CheckoutPage() {
         city: "", // You can add city/zip fields if you have them
         zip: "",
       };
+
+      // Add location data if available
+      if (selectedLocation) {
+        deliveryInformation.location = {
+          lat: selectedLocation.lat,
+          lng: selectedLocation.lng,
+          address: selectedLocation.address,
+        };
+      }
     }
 
     // Create the order in Firestore (backend-calculated prices)
@@ -99,6 +115,17 @@ export default function CheckoutPage() {
     //   setIsProcessing(false);
     //   router.push("/payment-success");
     // }, 1500);
+  };
+
+  const handleLocationSelect = (location: {
+    lat: number;
+    lng: number;
+    address: string;
+  }) => {
+    setSelectedLocation(location);
+    if (addressRef.current) {
+      addressRef.current.value = location.address;
+    }
   };
 
   useEffect(() => {
@@ -296,36 +323,27 @@ export default function CheckoutPage() {
                   <h2 className="text-lg md:text-xl font-semibold mb-4">
                     Delivery Address
                   </h2>
-                  <div className="mb-4">
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <MapPin className="h-5 w-5 text-gray-400" />
-                      </div>
-                      <Input
-                        type="text"
-                        placeholder="Please select your location"
-                        className={`pl-10  ${
-                          formErrors.address ? "border-red-500" : ""
-                        }`}
-                        required
-                        ref={addressRef}
-                      />
-                    </div>
-                    {formErrors.address && (
-                      <p className="mt-1 text-sm text-red-500">
-                        Please select a complete address
-                      </p>
-                    )}
-                  </div>
 
-                  {/* Google Maps */}
-                  <div className="rounded-lg overflow-hidden border border-gray-200 h-[300px] relative">
-                    <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
-                      <p className="text-gray-500">
-                        Google Maps would be embedded here
-                      </p>
-                    </div>
-                  </div>
+                  {/* Google Maps with Autocomplete */}
+                  <GoogleMapsAutocomplete
+                    onLocationSelect={handleLocationSelect}
+                    placeholder="Please select your location"
+                    className="rounded-lg overflow-hidden border border-gray-200"
+                    mapHeight="300px"
+                    hasError={formErrors.address}
+                    errorMessage="Please select a complete address"
+                    value={selectedLocation?.address || ""}
+                    onChange={(value) => {
+                      // Update the addressRef for form validation
+                      if (addressRef.current) {
+                        addressRef.current.value = value;
+                      }
+                      // Clear error when user starts typing
+                      if (value && formErrors.address) {
+                        setFormErrors((prev) => ({ ...prev, address: false }));
+                      }
+                    }}
+                  />
                 </motion.div>
               )}
 

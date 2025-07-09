@@ -14,7 +14,7 @@ export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal } = useCart();
 
   // Delivery fee
-  const deliveryFee = 20.0;
+  const deliveryFee = 0.0;
 
   // Total
   const total = cartTotal + deliveryFee;

@@ -75,6 +75,11 @@ const createOrder = async (
       city: string;
       zip: string;
     };
+    location?: {
+      lat: number;
+      lng: number;
+      address: string;
+    };
     tableNumber?: string;
     userId?: string;
     transactionId?: string;
@@ -145,6 +150,7 @@ const createOrder = async (
     paymentMethod: deliveryInformation.paymentMethod,
     transactionId: deliveryInformation.transactionId || null,
     deliveryAddress: deliveryInformation.deliveryAddress || null,
+    location: deliveryInformation.location || null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
