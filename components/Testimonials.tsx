@@ -52,8 +52,8 @@ const Testimonials = () => {
             What Our Customers Say
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what our amazing customers
-            have to say about their YUMS experience.
+            Don&apos;t just take our word for it. Here&apos;s what our amazing
+            customers have to say about their YUMS experience.
           </p>
         </div>
 
@@ -73,7 +73,7 @@ const Testimonials = () => {
               ))}
             </div>
             <blockquote className="text-lg text-gray-700 mb-6 leading-relaxed">
-              "{testimonials[currentTestimonial].comment}"
+              &quot;{testimonials[currentTestimonial].comment}&quot;
             </blockquote>
             <div className="flex items-center justify-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">

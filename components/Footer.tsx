@@ -233,7 +233,7 @@ export function Footer() {
                       <Clock className="h-4 w-4 text-red-600" />
                     </div>
                     <div>
-                      <p className="text-gray-500 text-sm">We're open</p>
+                      <p className="text-gray-500 text-sm">We&apos;re open</p>
                       <p className="text-gray-900 font-medium">
                         Mon-Fri: 11AM-6:30PM
                       </p>
