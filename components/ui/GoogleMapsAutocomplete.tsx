@@ -80,6 +80,13 @@ const GoogleMapsAutocomplete = ({
     }
   };
 
+  // Sync addressRef whenever address state changes
+  useEffect(() => {
+    if (onChange) {
+      onChange(address);
+    }
+  }, [address, onChange]);
+
   const mapContainerStyle = {
     width: "100%",
     height: mapHeight,

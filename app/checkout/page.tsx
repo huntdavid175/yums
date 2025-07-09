@@ -37,6 +37,7 @@ export default function CheckoutPage() {
     lng: number;
     address: string;
   } | null>(null);
+  const [currentAddress, setCurrentAddress] = useState("");
 
   // Refs for form fields
   const fullNameRef = useRef<HTMLInputElement>(null);
@@ -56,12 +57,20 @@ export default function CheckoutPage() {
     const customerName = fullNameRef.current?.value || "";
     const customerPhone = phoneRef.current?.value || "";
     const customerEmail = emailRef.current?.value || "";
-    const address =
-      selectedLocation?.address || addressRef.current?.value || "";
+    const address = currentAddress || selectedLocation?.address || "";
+
+    // Debug logging
+    console.log("Address validation:", {
+      currentAddress,
+      selectedLocationAddress: selectedLocation?.address,
+      finalAddress: address,
+      deliveryMethod,
+      hasError: deliveryMethod === "delivery" && !address.trim(),
+    });
 
     // Validate required fields
     const errors = {
-      address: deliveryMethod === "delivery" && !address,
+      address: deliveryMethod === "delivery" && !address.trim(),
       phone: !customerPhone,
     };
     setFormErrors(errors);
@@ -85,7 +94,7 @@ export default function CheckoutPage() {
         zip: "",
       };
 
-      // Add location data if available
+      // Add location data if available (from autocomplete)
       if (selectedLocation) {
         deliveryInformation.location = {
           lat: selectedLocation.lat,
@@ -123,10 +132,19 @@ export default function CheckoutPage() {
     address: string;
   }) => {
     setSelectedLocation(location);
+    setCurrentAddress(location.address);
     if (addressRef.current) {
       addressRef.current.value = location.address;
     }
   };
+
+  // Sync addressRef with selectedLocation
+  useEffect(() => {
+    if (selectedLocation?.address && addressRef.current) {
+      addressRef.current.value = selectedLocation.address;
+      setCurrentAddress(selectedLocation.address);
+    }
+  }, [selectedLocation]);
 
   useEffect(() => {
     // Dynamically import PaystackPop only on the client side
@@ -334,12 +352,14 @@ export default function CheckoutPage() {
                     errorMessage="Please select a complete address"
                     value={selectedLocation?.address || ""}
                     onChange={(value) => {
-                      // Update the addressRef for form validation
+                      // Update the currentAddress state for form validation
+                      setCurrentAddress(value);
+                      // Always update the addressRef for form validation
                       if (addressRef.current) {
                         addressRef.current.value = value;
                       }
-                      // Clear error when user starts typing
-                      if (value && formErrors.address) {
+                      // Clear error when user types anything meaningful
+                      if (value.trim() && formErrors.address) {
                         setFormErrors((prev) => ({ ...prev, address: false }));
                       }
                     }}
