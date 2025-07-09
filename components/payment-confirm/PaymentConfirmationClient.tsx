@@ -9,10 +9,28 @@ import {
   Printer,
   Home,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 // import { Header } from "@/components/Header";
 // import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/helpers/helper";
 // import { useCart } from "@/context/CartContext";
+
+// Animation variants for order summary
+const listVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
   // Calculate estimated delivery time (paidAt + 40 minutes)
@@ -138,21 +156,21 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
             <h1 className="text-3xl font-bold mb-2">Payment Successful!</h1>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6 text-xs md:text-sm">
               Thank you for your order. Your payment has been processed
               successfully.
             </p>
-            <div className="inline-block bg-gray-100 rounded-lg px-4 py-2 font-medium">
+            <div className="inline-block bg-gray-100 rounded-lg px-4 py-2 font-medium text-sm md:text-base">
               Order Number:{" "}
-              <span className="text-[#FF6B00]">
-                #{orderDetails.orderNumber}
-              </span>
+              <span className="text-red-500">#{orderDetails.orderNumber}</span>
             </div>
           </div>
 
           {/* Order Details */}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6 mb-8">
-            <h2 className="text-xl font-semibold mb-6">Order Details</h2>
+            <h2 className="text-base md:text-lg font-semibold mb-6">
+              Order Details
+            </h2>
 
             <div className="space-y-6">
               {/* Delivery Status */}
@@ -163,13 +181,13 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-medium">
+                  <h3 className="font-medium text-sm md:text-base">
                     Estimated{" "}
                     {orderDetails.orderType === "pickup"
                       ? "Pickup"
                       : "Delivery"}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 text-xs md:text-sm">
                     Today, {orderDetails.estimatedDelivery}
                   </p>
                 </div>
@@ -184,8 +202,10 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                 </div>
                 {orderDetails.orderType === "pickup" ? (
                   <div>
-                    <h3 className="font-medium">Pickup Address</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-medium text-sm md:text-base">
+                      Pickup Address
+                    </h3>
+                    <p className="text-gray-600 text-xs md:text-sm">
                       {/* {orderDetails.deliveryAddress?.street} */}
                       East Legon, Bawaleshie
                     </p>
@@ -193,8 +213,10 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                 ) : (
                   <div>
                     {" "}
-                    <h3 className="font-medium">Delivery Address</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-medium text-sm md:text-base">
+                      Delivery Address
+                    </h3>
+                    <p className="text-gray-600 text-xs md:text-sm">
                       {orderDetails.deliveryAddress?.street}
                     </p>
                   </div>
@@ -203,7 +225,7 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
 
               {/* Order Progress */}
               <div className="pt-4">
-                <h3 className="font-medium mb-4">Order Progress</h3>
+                <h3 className="font-medium mb-4 ">Order Progress</h3>
                 <div className="relative">
                   <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gray-200"></div>
                   <div className="space-y-8">
@@ -213,7 +235,7 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                           <div
                             className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
                               isStepCompleted(step.id)
-                                ? "bg-[#FF6B00]"
+                                ? "bg-green-500"
                                 : "bg-gray-200"
                             }`}
                           >
@@ -222,7 +244,7 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                             ) : (
                               <div
                                 className={`w-3 h-3 rounded-full ${
-                                  index === 0 ? "bg-[#FF6B00]" : "bg-gray-400"
+                                  index === 0 ? "bg-green-500" : "bg-gray-400"
                                 }`}
                               ></div>
                             )}
@@ -230,7 +252,7 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                         </div>
                         <div>
                           <h4
-                            className={`font-medium ${
+                            className={`font-medium text-sm md:text-base ${
                               isStepCompleted(step.id)
                                 ? "text-gray-900"
                                 : "text-gray-500"
@@ -238,7 +260,7 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
                           >
                             {step.title}
                           </h4>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-xs md:text-sm text-gray-500">
                             {step.description}
                           </p>
                         </div>
@@ -252,50 +274,63 @@ const PaymentConfirmationClient = ({ orderDetails }: { orderDetails: any }) => {
 
           {/* Order Summary */}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6 mb-8">
-            <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
+            <h2 className="text-base md:text-lg font-semibold mb-6">
+              Order Summary
+            </h2>
 
-            <div className="space-y-4">
-              {orderDetails.items.map((item: any) => (
-                <div
-                  className="flex justify-between pb-4 border-b border-gray-100"
-                  key={item.itemId}
-                >
-                  <span>
-                    {item.name} × {item.quantity}
-                  </span>
-                  <span className="font-medium">
-                    GH₵{item.total.toFixed(2)}
-                  </span>
-                </div>
-              ))}
+            <motion.div
+              className="space-y-4"
+              variants={listVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <AnimatePresence>
+                {orderDetails.items.map((item: any) => (
+                  <motion.div
+                    className="flex justify-between gap-x-4 lg:gap-x-10 pb-4 border-b border-gray-100 text-xs md:text-sm w-full"
+                    key={item.itemId}
+                    variants={itemVariants}
+                    exit={{ opacity: 0, y: 20 }}
+                    whileHover={{ scale: 1.02, backgroundColor: "#f9fafb" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                  >
+                    <span className="truncate max-w-[60%]">
+                      {item.name} × {item.quantity}
+                    </span>
+                    <span className="font-medium min-w-[70px] text-right">
+                      GH₵{item.total.toFixed(2)}
+                    </span>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between text-xs md:text-sm">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-medium">
-                  GH₵{orderDetails.total.toFixed(2)}
+                <span className="font-semibold">
+                  GH₵{formatCurrency(orderDetails.total)}
                 </span>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between text-xs md:text-sm">
                 <span className="text-gray-600">Delivery Fee</span>
-                <span className="font-medium">Pay on delivery</span>
+                <span className="font-semibold">Pay on delivery</span>
               </div>
 
               <div className="border-t border-gray-200 pt-4 mt-4">
-                <div className="flex justify-between font-bold">
+                <div className="flex justify-between font-bold text-sm md:text-base">
                   <span>Total</span>
-                  <span className="text-[#FF6B00]">
-                    GH₵{orderDetails.total.toFixed(2)}
+                  <span className="text-red-500">
+                    GH₵{formatCurrency(orderDetails.total)}
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <Link href="/track-order" className="flex-1">
-              <Button className="w-full bg-[#FF6B00] hover:bg-[#e05f00] text-white">
+              <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
                 Track Order <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>

@@ -14,3 +14,10 @@ export const formatDeliveryTime = (time: any) => {
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
   return `${formattedHours}:${formattedMinutes} ${amPm}`;
 };
+
+// Helper for formatting currency
+export const formatCurrency = (amount: number) =>
+  amount.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });

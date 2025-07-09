@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   // ChevronLeft,
   // ChevronRight,
@@ -117,21 +118,48 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
       quantity
     );
 
-    toast("Added to cart", {
+    toast.success("Added to cart", {
       description: `${quantity} × ${productName} has been added to your cart.`,
       duration: 3000,
+      action: {
+        label: "View Cart",
+        onClick: () => (window.location.href = "/cart"),
+      },
     });
   };
 
   return (
-    <div>
-      <main className="flex-1 py-8 px-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.main
+        className="flex-1 py-8 px-4"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm p-6">
+          <motion.div
+            className="bg-white rounded-xl overflow-hidden shadow-sm p-6"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Product Image Gallery */}
-              <div className="relative">
-                <div className="aspect-square relative rounded-lg overflow-hidden">
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+              >
+                <motion.div
+                  className="aspect-square relative rounded-lg overflow-hidden"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <Image
                     src={foodData.image || "/placeholder.svg"}
                     alt={foodData.name}
@@ -155,7 +183,7 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                   >
                     <ChevronRight className="h-5 w-5 text-gray-700" />
                   </button> */}
-                </div>
+                </motion.div>
 
                 {/* Thumbnails */}
                 {/* <div className="flex mt-4 space-x-2">
@@ -178,152 +206,314 @@ const ProductClient = ({ foodData }: { foodData: any }) => {
                     </button>
                   ))}
                 </div> */}
-              </div>
+              </motion.div>
 
               {/* Product Details */}
-              <div>
-                <h1 className="text-xl md:text-3xl font-bold mb-2">
+              <motion.div
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
+                <motion.h1
+                  className="text-xl md:text-3xl font-bold mb-2"
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.5 }}
+                >
                   {foodData.name}
-                </h1>
-                <div className="inline-block bg-blue-100 text-blue-800 text-xs  px-3 py-1 rounded-full mb-4">
+                </motion.h1>
+                <motion.div
+                  className="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full mb-4"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.6 }}
+                >
                   {foodData.category}
-                </div>
+                </motion.div>
 
-                <h2 className="text-lg md:text-2xl font-bold mb-4 text-gray-900">
+                <motion.h2
+                  className="text-lg md:text-2xl font-bold mb-4 text-gray-900"
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.7 }}
+                >
                   GH₵{calculateTotalPrice().toFixed(2)}
-                </h2>
+                </motion.h2>
 
-                <p className="text-gray-600 mb-4">{foodData.description}</p>
+                <motion.p
+                  className="text-gray-600 mb-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                >
+                  {foodData.description}
+                </motion.p>
 
                 {/* Detailed Description */}
-                <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 text-sm leading-relaxed">
-                    {foodData.comesWith}
-                  </p>
-                </div>
+                {foodData.comesWith && (
+                  <motion.div
+                    className="mb-6 p-4 bg-gray-50 rounded-lg"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.9 }}
+                  >
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      {foodData.comesWith}
+                    </p>
+                  </motion.div>
+                )}
 
-                <div className="border-t border-gray-200 my-6"></div>
+                <motion.div
+                  className="border-t border-gray-200 my-6"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 1.0 }}
+                ></motion.div>
 
                 {/* Choose Extras */}
-                <div className="mb-6">
+                <motion.div
+                  className="mb-6"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 1.1 }}
+                >
                   <div className="flex items-center mb-4">
                     <Sparkles className="h-5 w-5 text-yellow-500 mr-2" />
                     <h3 className="text-base font-bold">Choose Extras</h3>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
-                    {foodData.extras.map((extra: Extra) => (
-                      <button
+                    {foodData.extras.map((extra: Extra, index: number) => (
+                      <motion.button
                         key={extra.id}
                         onClick={() => toggleExtra(extra.id)}
-                        className={`p-4 rounded-xl border-2 text-center transition-colors ${
+                        className={`p-4 rounded-xl border-2 text-center transition-all duration-300 ${
                           selectedExtras.includes(extra.id)
-                            ? "border-[#FF6B00] bg-orange-50"
+                            ? "border-red-500 bg-red-50 shadow-lg"
                             : "border-gray-200 hover:border-gray-300"
                         }`}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          scale: selectedExtras.includes(extra.id) ? 1.05 : 1,
+                          rotate: selectedExtras.includes(extra.id)
+                            ? [0, -2, 2, 0]
+                            : 0,
+                        }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 1.2 + index * 0.05,
+                          scale: { duration: 0.2 },
+                          rotate: { duration: 0.3 },
+                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        <div className="font-medium text-xs md:text-sm text-gray-900">
+                        <motion.div
+                          className="font-medium text-xs md:text-sm text-gray-900"
+                          animate={{
+                            color: selectedExtras.includes(extra.id)
+                              ? "#dc2626"
+                              : "#111827",
+                          }}
+                          transition={{ duration: 0.3 }}
+                        >
                           {extra.name}
-                        </div>
-                        <div className="text-[#FF6B00] text-xs md:text-sm font-bold">
+                        </motion.div>
+                        <motion.div
+                          className="text-red-500 text-xs md:text-sm font-bold"
+                          animate={{
+                            scale: selectedExtras.includes(extra.id) ? 1.1 : 1,
+                          }}
+                          transition={{ duration: 0.2 }}
+                        >
                           GH₵{extra.price.toFixed(2)}
-                        </div>
-                      </button>
+                        </motion.div>
+                        {selectedExtras.includes(extra.id) && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0 }}
+                            className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center"
+                          >
+                            <motion.div
+                              initial={{ rotate: -90, scale: 0 }}
+                              animate={{ rotate: 0, scale: 1 }}
+                              transition={{ duration: 0.3, delay: 0.1 }}
+                              className="text-white text-xs font-bold"
+                            >
+                              ✓
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </motion.button>
                     ))}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Sizes Available */}
-                <div className="mb-6">
+                <motion.div
+                  className="mb-6"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 1.4 }}
+                >
                   <div className="flex items-center mb-4">
                     <Ruler className="h-5 w-5 text-gray-600 mr-2" />
                     <h3 className="text-base font-bold">Sizes Available</h3>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {foodData.sizes.map((size: Size) => (
-                      <button
+                    {foodData.sizes.map((size: Size, index: number) => (
+                      <motion.button
                         key={size.id}
                         onClick={() => setSelectedSize(size.id)}
-                        className={`p-4 rounded-xl border-2 text-center transition-colors ${
+                        className={`p-4 rounded-xl border-2 text-center transition-all duration-300 relative ${
                           selectedSize === size.id
-                            ? "border-[#FF6B00] bg-orange-50"
+                            ? "border-red-500 bg-red-50 shadow-lg"
                             : "border-gray-200 hover:border-gray-300"
                         }`}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          scale: selectedSize === size.id ? 1.05 : 1,
+                          rotate: selectedSize === size.id ? [0, -2, 2, 0] : 0,
+                        }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 1.5 + index * 0.05,
+                          scale: { duration: 0.2 },
+                          rotate: { duration: 0.3 },
+                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        <div className="font-medium text-xs md:text-sm text-gray-900">
+                        <motion.div
+                          className="font-medium text-xs md:text-sm text-gray-900"
+                          animate={{
+                            color:
+                              selectedSize === size.id ? "#dc2626" : "#111827",
+                          }}
+                          transition={{ duration: 0.3 }}
+                        >
                           {size.name}
-                        </div>
-                        <div className="text-[#FF6B00] text-xs md:text-sm font-bold">
+                        </motion.div>
+                        <motion.div
+                          className="text-red-500 text-xs md:text-sm font-bold"
+                          animate={{
+                            scale: selectedSize === size.id ? 1.1 : 1,
+                          }}
+                          transition={{ duration: 0.2 }}
+                        >
                           {size.price === 0
                             ? "Standard"
                             : size.price > 0
                             ? `+GH₵${size.price.toFixed(2)}`
                             : `GH₵${size.price.toFixed(2)}`}
-                        </div>
-                      </button>
+                        </motion.div>
+                        {selectedSize === size.id && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0 }}
+                            className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center"
+                          >
+                            <motion.div
+                              initial={{ rotate: -90, scale: 0 }}
+                              animate={{ rotate: 0, scale: 1 }}
+                              transition={{ duration: 0.3, delay: 0.1 }}
+                              className="text-white text-xs font-bold"
+                            >
+                              ✓
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </motion.button>
                     ))}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Quantity Selector and Add to Cart */}
-                <div className="flex flex-col space-y-4">
+                <motion.div
+                  className="flex flex-col space-y-4"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 1.7 }}
+                >
                   <div className="flex items-center">
                     <span className="text-gray-700 font-medium mr-4 text-sm md:text-base">
                       Quantity:
                     </span>
-                    <button
+                    <motion.button
                       onClick={decrementQuantity}
                       className="p-2 rounded-full border border-gray-300"
                       aria-label="Decrease quantity"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <Minus className="h-4 w-4" />
-                    </button>
+                    </motion.button>
 
                     <div className="w-12 mx-2 text-center font-medium text-sm md:text-base">
                       {quantity}
                     </div>
 
-                    <button
+                    <motion.button
                       onClick={incrementQuantity}
                       className="p-2 rounded-full border border-gray-300"
                       aria-label="Increase quantity"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <Plus className="h-4 w-4" />
-                    </button>
+                    </motion.button>
 
-                    <button
+                    <motion.button
                       className="ml-auto p-2 rounded-full border border-gray-300"
                       aria-label="Share"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <Share2 className="h-4 w-4" />
-                    </button>
+                    </motion.button>
                   </div>
 
-                  <Button
-                    className="w-full bg-[#FF6B00] hover:bg-[#e05f00] text-white mt-6"
-                    onClick={handleAddToCart}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <ShoppingCart className="mr-2 h-4 w-4" /> Add To Cart
-                  </Button>
+                    <Button
+                      className="w-full bg-red-500 hover:bg-red-600 text-white mt-6"
+                      onClick={handleAddToCart}
+                    >
+                      <ShoppingCart className="mr-2 h-4 w-4" /> Add To Cart
+                    </Button>
+                  </motion.div>
 
                   <div className="flex space-x-4">
                     <Link href="/cart" className="flex-1">
-                      <Button
-                        variant="outline"
-                        className="w-full bg-transparent"
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        Go To Cart
-                      </Button>
+                        <Button
+                          variant="outline"
+                          className="w-full bg-transparent"
+                        >
+                          Go To Cart
+                        </Button>
+                      </motion.div>
                     </Link>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </main>
+      </motion.main>
 
       <Toaster />
-    </div>
+    </motion.div>
   );
 };
 

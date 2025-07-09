@@ -129,3 +129,33 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+@keyframes input-focus {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.15);
+    transform: scale(1);
+  }
+  60% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.1);
+    transform: scale(1.06);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.15);
+    transform: scale(1.05);
+  }
+}
+
+.focus\:animate-input-focus:focus {
+  animation: input-focus 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  box-shadow: 0 0 0 1000px #fff inset !important;
+  -webkit-text-fill-color: #111827 !important;
+  caret-color: #111827 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

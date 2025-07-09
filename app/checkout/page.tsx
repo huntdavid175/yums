@@ -13,6 +13,8 @@ import { useCart } from "@/context/CartContext";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createOrder } from "../actions/place-order";
+import { formatCurrency } from "@/helpers/helper";
+import { motion } from "framer-motion";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -109,41 +111,48 @@ export default function CheckoutPage() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <motion.div
+      className="flex min-h-screen flex-col"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       <Header />
-
-      <main className="flex-1 py-8 px-4">
-        {/* Notification Banner */}
-        {/* <div className="max-w-6xl mx-auto mb-6">
-          <div className="bg-green-50 border border-green-100 rounded-lg p-4 relative">
-            <div className="flex items-start">
-              <div className="flex-shrink-0">
-                <span className="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-              </div>
-              <div>
-                <h3 className="font-medium text-green-800">
-                  Exciting News! 🎉
-                </h3>
-                <p className="text-green-700 text-sm">
-                  We're thrilled to announce our new location at Legon Campus!
-                  🏫
-                </p>
-              </div>
-            </div>
-            <button className="absolute top-4 right-4 text-green-500 hover:text-green-700">
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-        </div> */}
-
+      <motion.main
+        className="flex-1 py-8 px-4"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Checkout</h1>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <motion.h1
+            className="text-3xl font-bold mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            Checkout
+          </motion.h1>
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+          >
             {/* Checkout Form */}
-            <div className="lg:col-span-2 space-y-6">
+            <motion.div
+              className="lg:col-span-2 space-y-6"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+            >
               {/* Delivery Options */}
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
+              <motion.div
+                className="bg-white rounded-xl shadow-sm overflow-hidden p-6"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.5 }}
+              >
                 <h2 className="text-base md:text-lg font-semibold mb-4">
                   Delivery Options
                 </h2>
@@ -151,12 +160,12 @@ export default function CheckoutPage() {
                   <div
                     className={`border rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
                       deliveryMethod === "delivery"
-                        ? "border-[#FF6B00] bg-orange-50"
+                        ? "border-red-500 bg-red-50"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                     onClick={() => setDeliveryMethod("delivery")}
                   >
-                    <Truck className="h-6 w-6 md:h-8 md:w-8 text-[#FF6B00] mb-2" />
+                    <Truck className="h-6 w-6 md:h-8 md:w-8 text-red-500 mb-2" />
                     <span className="font-medium text-sm md:text-base">
                       Delivery
                     </span>
@@ -164,21 +173,26 @@ export default function CheckoutPage() {
                   <div
                     className={`border rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
                       deliveryMethod === "pickup"
-                        ? "border-[#FF6B00] bg-orange-50"
+                        ? "border-red-500 bg-red-50"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                     onClick={() => setDeliveryMethod("pickup")}
                   >
-                    <MapPin className=" h-6 w-6 md:h-8 md:w-8 text-[#FF6B00] mb-2" />
+                    <MapPin className=" h-6 w-6 md:h-8 md:w-8 text-red-500 mb-2" />
                     <span className="font-medium text-sm md:text-base">
                       Pickup
                     </span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Personal Information */}
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
+              <motion.div
+                className="bg-white rounded-xl shadow-sm overflow-hidden p-6"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.6 }}
+              >
                 <h2 className="text-lg md:text-xl font-semibold mb-4">
                   Personal Information
                 </h2>
@@ -269,11 +283,16 @@ export default function CheckoutPage() {
                     />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Delivery Address */}
               {deliveryMethod === "delivery" && (
-                <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
+                <motion.div
+                  className="bg-white rounded-xl shadow-sm overflow-hidden p-6"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.7 }}
+                >
                   <h2 className="text-lg md:text-xl font-semibold mb-4">
                     Delivery Address
                   </h2>
@@ -307,12 +326,17 @@ export default function CheckoutPage() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* Delivery Speed */}
               {deliveryMethod === "delivery" && (
-                <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
+                <motion.div
+                  className="bg-white rounded-xl shadow-sm overflow-hidden p-6"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                >
                   <h2 className="text-lg md:text-xl font-semibold mb-4">
                     Delivery Speed
                   </h2>
@@ -320,7 +344,7 @@ export default function CheckoutPage() {
                     <div
                       className={`border rounded-lg p-4 cursor-pointer transition-colors ${
                         deliverySpeed === "express"
-                          ? "border-[#FF6B00] bg-orange-50"
+                          ? "border-red-500 bg-red-50"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                       onClick={() => setDeliverySpeed("express")}
@@ -328,7 +352,7 @@ export default function CheckoutPage() {
                       <div className="flex items-start">
                         <div className="flex-shrink-0 mr-3">
                           <svg
-                            className="w-6 h-6 text-[#FF6B00]"
+                            className="w-6 h-6 text-54d-500"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -352,7 +376,7 @@ export default function CheckoutPage() {
                           <p className="text-xs md:text-sm text-gray-500 mt-1">
                             Not available in your area
                           </p>
-                          <p className="text-[#FF6B00] font-medium mt-2 text-sm md:text-base">
+                          <p className="text-red-500 font-medium mt-2 text-sm md:text-base">
                             GH₵50.00
                           </p>
                         </div>
@@ -362,7 +386,7 @@ export default function CheckoutPage() {
                     <div
                       className={`border rounded-lg p-4 cursor-pointer transition-colors ${
                         deliverySpeed === "standard"
-                          ? "border-[#FF6B00] bg-orange-50"
+                          ? "border-red-500 bg-red-50"
                           : "border-gray-200 hover:border-gray-300"
                       }`}
                       onClick={() => setDeliverySpeed("standard")}
@@ -370,7 +394,7 @@ export default function CheckoutPage() {
                       <div className="flex items-start">
                         <div className="flex-shrink-0 mr-3">
                           <svg
-                            className="w-6 h-6 text-[#FF6B00]"
+                            className="w-6 h-6 text-red-500"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -399,14 +423,24 @@ export default function CheckoutPage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
 
             {/* Order Summary */}
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6 sticky top-24">
-                <h2 className="text-lg lg:text-xl font-semibold mb-6">
+            <motion.div
+              className="lg:col-span-1"
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+            >
+              <motion.div
+                className="bg-white rounded-xl shadow-sm overflow-hidden p-6 sticky top-24"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.6 }}
+              >
+                <h2 className="text-base md:text-lg font-semibold mb-6">
                   Order Breakdown
                 </h2>
 
@@ -414,22 +448,22 @@ export default function CheckoutPage() {
                   {cartItems.map((item) => (
                     <div
                       key={item.id}
-                      className="flex justify-between pb-4 border-b border-gray-100 text-sm lg:text-base "
+                      className="flex justify-between gap-x-6 pb-4 border-b border-gray-100 text-xs lg:text-sm "
                     >
                       <span>
                         {item.name} × {item.quantity}
                       </span>
-                      <span className="font-medium">
+                      <span className="font-medium min-w-[70px] text-right">
                         GH₵
-                        {(
+                        {formatCurrency(
                           Number.parseFloat(item.price.replace(/[^\d.]/g, "")) *
-                          item.quantity
-                        ).toFixed(2)}
+                            item.quantity
+                        )}
                       </span>
                     </div>
                   ))}
 
-                  <div className="flex justify-between text-sm md:text-base ">
+                  <div className="flex justify-between text-xs md:text-sm ">
                     <span className="text-gray-600">
                       Estimated Delivery Fee
                     </span>
@@ -443,14 +477,14 @@ export default function CheckoutPage() {
                   <div className="border-t border-gray-200 pt-4 mt-4">
                     <div className="flex justify-between font-bold text-sm md:text-base">
                       <span>Subtotal</span>
-                      <span className="text-[#FF6B00]">
-                        GH₵{total.toFixed(2)}
+                      <span className="text-red-500">
+                        GH₵{formatCurrency(total)}
                       </span>
                     </div>
                   </div>
 
                   <Button
-                    className="w-full bg-[#FF6B00] hover:bg-[#e05f00] text-white mt-6"
+                    className="w-full bg-red-500 hover:bg-red-500 text-white mt-6"
                     onClick={handlePayNow}
                     disabled={isProcessing}
                   >
@@ -489,19 +523,18 @@ export default function CheckoutPage() {
                     By completing this purchase, you agree to our{" "}
                     <Link
                       href="/terms"
-                      className="text-[#FF6B00] hover:underline"
+                      className="text-red-500 hover:underline"
                     >
                       terms of service
                     </Link>
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
-      </main>
-
+      </motion.main>
       <Footer />
-    </div>
+    </motion.div>
   );
 }
