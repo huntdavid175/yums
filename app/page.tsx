@@ -5,6 +5,8 @@ import { FoodCard } from "@/components/FoodCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import Testimonials from "@/components/Testimonials";
+import CTA from "@/components/CTA";
 
 export default function Home() {
   return (
@@ -21,6 +23,12 @@ export default function Home() {
           priority
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
+          <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-red-200/50 rounded-full px-4 py-2 mb-6 shadow-lg">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium text-gray-700">
+              🔥 Now delivering in 30 minutes!
+            </span>
+          </div>
           <div className="mb-4">
             <Image
               src="/placeholder.svg?height=100&width=100"
@@ -30,10 +38,11 @@ export default function Home() {
               className="mx-auto rounded-full bg-white/20 p-2"
             />
           </div>
+
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            <span className="text-[#FF6B00]">YUMS</span> DELICACIES
+            <span className="text-red-500">YUMS</span> DELICACIES
           </h1>
-          <Button className="mt-6 bg-[#FF6B00] hover:bg-[#e05f00] text-white rounded-full px-8">
+          <Button className="mt-6 bg-red-600 hover:bg-red-700 text-white rounded-full px-8">
             Order here→
           </Button>
         </div>
@@ -110,30 +119,10 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <TestimonialCard
-              name="Maame"
-              date="November 10th, 2023"
-              rating={5}
-              comment="God bless you and your business wai. YUMS for Alpha Hour point of contact🙏🏿🙏🏿❤️❤️"
-            />
-            <TestimonialCard
-              name="obed Moore"
-              date="November 11th, 2023"
-              rating={5}
-              comment="You guys dey force in this Nana Addo economy. Food is a 100"
-            />
-            <TestimonialCard
-              name="magic mug☕"
-              date="November 12th, 2023"
-              rating={3}
-              comment="However, I was expecting more... The chicken is 10000/10 for me, the taste was very nice... If I should order again... Then it would be for the chicken and not jollof. The Jollof was okay! However, when I opened it, there was no sweet aroma, it was very dry, I understand you used basmati rice... But a blend with another rice could be best. Out of 10, I will give it 6. The taste was not really giving for me. It felt raw... Like rice and a nice stew mixed together, just that it comes out one one 😂😂"
-            />
-          </div>
-        </div>
-      </section>
+      <Testimonials />
+
+      {/* CTA Section  */}
+      <CTA />
 
       <Footer />
     </div>
