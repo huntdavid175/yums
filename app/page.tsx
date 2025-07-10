@@ -23,13 +23,15 @@ export default function Home() {
           className="object-cover brightness-75"
           priority
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
-          <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-red-200/50 rounded-full px-4 py-2 mb-6 shadow-lg">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-gray-700 ">
-              🔥 Now delivering in 30 minutes!
-            </span>
+        {/* Overlay gradient for better contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4 z-20">
+          {/* Animated badge */}
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-5 py-2 rounded-full mb-6 shadow-lg animate-bounce">
+            <span className="text-lg">🚚</span>
+            <span className="font-semibold">Now delivering in 30 minutes!</span>
           </div>
+          {/* Logo or badge */}
           <div className="mb-4">
             <Image
               src="/placeholder.svg?height=100&width=100"
@@ -40,14 +42,20 @@ export default function Home() {
             />
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 font-oswald">
+          {/* Main heading */}
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-4 font-oswald drop-shadow-lg">
             <span className="text-red-500">YUMS</span> DELICACIES
           </h1>
+          {/* Subtitle */}
+          <p className="text-lg md:text-2xl mb-6 max-w-xl mx-auto text-white/90 font-roboto">
+            Ghana’s favorite party trays, delivered hot and fresh to your door.
+          </p>
+          {/* CTA Button */}
           <Link
             href="/store"
-            className="mt-6 bg-red-600 hover:bg-red-700 text-white rounded-full px-6 py-2 inline-block font-medium transition-colors"
+            className="mt-4 bg-gradient-to-r from-red-600 to-orange-500 hover:from-orange-500 hover:to-red-600 text-white rounded-full px-8 py-3 font-bold text-lg shadow-xl transition-transform transform hover:scale-105 flex items-center gap-2"
           >
-            Order here→
+            Order here <span className="text-2xl">→</span>
           </Link>
         </div>
       </section>
