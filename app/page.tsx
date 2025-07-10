@@ -15,7 +15,7 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+      <section className="relative h-[500px] md:h-[600px] overflow-hidden font-roboto">
         <Image
           src="https://www.tilda.com/wp-content/uploads/2024/08/Nigerian-Jollof-04-scaled.jpg"
           alt="Yums Hero"
@@ -40,7 +40,7 @@ export default function Home() {
             />
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 font-oswald">
             <span className="text-red-500">YUMS</span> DELICACIES
           </h1>
           <Link
@@ -56,7 +56,7 @@ export default function Home() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2 font-oswald">
               Our Special Dishes
             </h2>
             <div className="flex justify-center mt-4">
