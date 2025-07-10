@@ -23,9 +23,9 @@ export function Footer() {
               </span>
             </div>
             <p className="text-gray-600 text-sm mb-4">
-              If you're interested in collaborating with us or becoming an
-              affiliate, shoot us a message on Instagram. Let's create something
-              amazing together!
+              If you&apos;re interested in collaborating with us or becoming an
+              affiliate, shoot us a message on Instagram. Let&apos;s create
+              something amazing together!
             </p>
           </div>
 

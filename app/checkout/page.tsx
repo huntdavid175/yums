@@ -234,7 +234,7 @@ export default function CheckoutPage() {
                         Delivery Options
                       </h2>
                       <p className="text-sm text-gray-500">
-                        Choose how you'd like to receive your order
+                        Choose how you&apos;d like to receive your order
                       </p>
                     </div>
                   </div>
@@ -254,7 +254,7 @@ export default function CheckoutPage() {
                         Delivery
                       </span>
                       <p className="text-xs text-gray-500 mt-1 text-center">
-                        We'll bring it to you
+                        We&apos;ll bring it to you
                       </p>
                     </motion.div>
                     <motion.div
