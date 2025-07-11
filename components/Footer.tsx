@@ -9,13 +9,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand & Contact */}
           <div>
-            <h2 className="text-xl font-bold mb-3 font-oswald">Didi Jollof</h2>
+            <h2 className="text-xl font-bold mb-3 font-oswald">YUMS</h2>
             <div className="flex items-center gap-2 mb-3">
               <Mail className="h-5 w-5 text-gray-700" />
               <span className="text-sm">
                 We are available 24/7 at{" "}
                 <a
-                  href="mailto:support@didijollof.store"
+                  href="mailto:support@yums.store"
                   className="text-red-600 hover:underline"
                 >
                   support@yums.store
