@@ -105,7 +105,7 @@ export default function ContactPage() {
             {/* Contact Information */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900 font-oswald">
+                <h2 className="text-xl font-bold mb-6 text-gray-900 font-oswald">
                   Contact Information
                 </h2>
 
@@ -165,19 +165,21 @@ export default function ContactPage() {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Monday - Friday</span>
-                    <span className="font-semibold text-red-600">
+                    <span className="font-semibold text-sm text-red-600">
                       11:00 AM - 6:30 PM
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Saturday</span>
-                    <span className="font-semibold text-red-600">
+                    <span className="font-semibold text-sm text-red-600">
                       9:00 AM - 5:00 PM
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Sunday</span>
-                    <span className="font-semibold text-gray-500">Closed</span>
+                    <span className="font-semibold text-gray-500 text-sm">
+                      Closed
+                    </span>
                   </div>
                 </div>
 
