@@ -83,19 +83,19 @@ export default function ContactPage() {
             <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-6 py-3 mb-8">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <span className="text-sm font-medium text-gray-700">
-                We're online and ready to help!
+                We&apos;re online and ready to help!
               </span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900 font-oswald">
-              Let's Talk
+              Let&apos;s Talk
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-oswald">
               Got questions about our mouth-watering food? Need help with an
               order?
               <br />
               <span className="text-red-600 font-semibold ">
-                We're here to make your experience amazing.
+                We&apos;re here to make your experience amazing.
               </span>
             </p>
           </div>
@@ -235,8 +235,8 @@ export default function ContactPage() {
                       Message Sent!
                     </h3>
                     <p className="text-gray-600 mb-4">
-                      Thank you for reaching out. We'll get back to you within
-                      24 hours.
+                      Thank you for reaching out. We&apos;ll get back to you
+                      within 24 hours.
                     </p>
                     <p className="text-sm text-gray-500">
                       This form will reset automatically...
@@ -407,8 +407,8 @@ export default function ContactPage() {
                 Find Us
               </h2>
               <p className="text-gray-600 mb-6">
-                Visit our location at Legon Campus. We're easily accessible and
-                offer both pickup and delivery services.
+                Visit our location at Legon Campus. We&apos;re easily accessible
+                and offer both pickup and delivery services.
               </p>
             </div>
             <div className="h-[400px] bg-gray-100 relative">
