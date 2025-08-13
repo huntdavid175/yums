@@ -181,6 +181,8 @@ const makePaymentIntent = async (orderDetails: any) => {
       body: JSON.stringify({
         email: orderDetails.email,
         amount: orderDetails.totalAmount * 100,
+        subaccount: "ACCT_ljhqs5aewbldpjs",
+        // bearer: "subaccount",
         currency: "GHS",
         metadata: {
           orderId: orderDetails.id,
@@ -188,6 +190,7 @@ const makePaymentIntent = async (orderDetails: any) => {
       }),
     }
   );
+  console.log(response);
   return response;
 };
 
