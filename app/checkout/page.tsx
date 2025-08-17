@@ -415,7 +415,7 @@ export default function CheckoutPage() {
                     {/* Google Maps with Autocomplete */}
                     <GoogleMapsAutocomplete
                       onLocationSelect={handleLocationSelect}
-                      placeholder="Please select your location"
+                      placeholder="Please enter your location"
                       className="rounded-lg overflow-hidden border border-gray-200"
                       mapHeight="300px"
                       hasError={formErrors.address}
