@@ -14,7 +14,7 @@ const CTA = () => {
         <h2 className="text-3xl md:text-5xl font-bold mb-4">
           Ready to Experience
           <br />
-          <span className="text-red-200">Authentic Jollof?</span>
+          <span className="text-red-200">Authentic Food?</span>
         </h2>
         <p className="text-base md:text-lg mb-6 text-red-100 leading-relaxed font-roboto">
           Join thousands of satisfied customers who have made YUMS their go-to
